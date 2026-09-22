@@ -1,0 +1,14 @@
+/Users/johnyoung/Desktop/C# Program/ToDoList/bin/Debug/net10.0/ToDoList
+/Users/johnyoung/Desktop/C# Program/ToDoList/bin/Debug/net10.0/ToDoList.deps.json
+/Users/johnyoung/Desktop/C# Program/ToDoList/bin/Debug/net10.0/ToDoList.runtimeconfig.json
+/Users/johnyoung/Desktop/C# Program/ToDoList/bin/Debug/net10.0/ToDoList.dll
+/Users/johnyoung/Desktop/C# Program/ToDoList/bin/Debug/net10.0/ToDoList.pdb
+/Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/ToDoList.GeneratedMSBuildEditorConfig.editorconfig
+/Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/ToDoList.AssemblyInfoInputs.cache
+/Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/ToDoList.AssemblyInfo.cs
+/Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/ToDoList.csproj.CoreCompileInputs.cache
+/Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/ToDoList.dll
+/Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/refint/ToDoList.dll
+/Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/ToDoList.pdb
+/Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/ToDoList.genruntimeconfig.cache
+/Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/ref/ToDoList.dll
