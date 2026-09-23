@@ -12,3 +12,4 @@
 /Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/ToDoList.pdb
 /Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/ToDoList.genruntimeconfig.cache
 /Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/ref/ToDoList.dll
+/Users/johnyoung/Desktop/C# Program/ToDoList/obj/Debug/net10.0/ToDoList.sourcelink.json

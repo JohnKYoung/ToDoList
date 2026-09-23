@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 
 namespace TodoList
 {
+    // Represents the lifecycle states of a task
     public enum TaskStatus
     {
         Pending,
@@ -15,26 +16,37 @@ namespace TodoList
         Completed
     }
 
+    // Represents an individual ToDo task item
     public class TodoTask
     {
+        // Unique identifier for the task
         public Guid Id { get; set; } = Guid.NewGuid();
+
+        // Title or summary of the task
         public string Title { get; set; } = string.Empty;
+
+        // Due date for task completion
         public DateTime DueDate { get; set; }
 
+        // Current status; serialized as a string in JSON storage
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public TaskStatus Status { get; set; } = TaskStatus.Pending;
 
+        // Project the task belongs to
         public string Project { get; set; } = "General";
     }
 
+    // Handles persistence, retrieval, and modification of tasks
     public class TaskManager
     {
         private readonly string _filePath;
         private List<TodoTask> _tasks;
         private readonly JsonSerializerOptions _jsonOptions;
 
+        // Initializes the manager and loads existing tasks from disk
         public TaskManager(string fileName = "tasks.json")
         {
+            // Resolve file path relative to the application binary directory
             _filePath = Path.Combine(AppContext.BaseDirectory, fileName);
             _jsonOptions = new JsonSerializerOptions
             {
@@ -44,6 +56,7 @@ namespace TodoList
             _tasks = LoadTasks();
         }
 
+        // Reads tasks from the local JSON file
         private List<TodoTask> LoadTasks()
         {
             if (!File.Exists(_filePath))
@@ -58,6 +71,7 @@ namespace TodoList
             }
             catch (Exception ex)
             {
+                // Fall back to an empty task list if file read or deserialization fails
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Error reading storage file: {ex.Message}. Starting with an empty list.");
                 Console.ResetColor();
@@ -65,6 +79,7 @@ namespace TodoList
             }
         }
 
+        // Saves the task list to the JSON file
         public void SaveTasks()
         {
             try
@@ -80,6 +95,7 @@ namespace TodoList
             }
         }
 
+        // Creates a new task and appends it to the collection
         public void AddTask(string title, DateTime dueDate, TaskStatus status, string project)
         {
             var task = new TodoTask
@@ -94,6 +110,7 @@ namespace TodoList
             SaveTasks();
         }
 
+        // Updates specific fields of an existing task by index
         public bool EditTask(int index, string? newTitle, DateTime? newDueDate, TaskStatus? newStatus, string? newProject)
         {
             if (index < 0 || index >= _tasks.Count)
@@ -109,6 +126,7 @@ namespace TodoList
             return true;
         }
 
+        // Sets the specified task's status to Completed
         public bool MarkTaskAsCompleted(int index)
         {
             if (index < 0 || index >= _tasks.Count)
@@ -119,6 +137,7 @@ namespace TodoList
             return true;
         }
 
+        // Deletes a task from the list by index
         public bool RemoveTask(int index)
         {
             if (index < 0 || index >= _tasks.Count)
@@ -129,19 +148,24 @@ namespace TodoList
             return true;
         }
 
+        // Returns an immutable view of the task list
         public IReadOnlyList<TodoTask> GetTasks() => _tasks.AsReadOnly();
 
+        // Sorts tasks chronologically by due date
         public IEnumerable<TodoTask> GetTasksSortedByDate() =>
             _tasks.OrderBy(t => t.DueDate);
 
+        // Groups tasks by project name in alphabetical order
         public IEnumerable<IGrouping<string, TodoTask>> GetTasksGroupedByProject() =>
             _tasks.GroupBy(t => t.Project, StringComparer.OrdinalIgnoreCase).OrderBy(g => g.Key);
     }
 
+    // Handles user interaction and application control flow
     internal class Program
     {
         private static readonly TaskManager Manager = new TaskManager();
 
+        // Main entry point and main menu event loop
         static void Main()
         {
             bool running = true;
@@ -181,6 +205,7 @@ namespace TodoList
             }
         }
 
+        // Displays count of completed vs. incomplete tasks
         private static void RenderSummary()
         {
             var tasks = Manager.GetTasks();
@@ -190,6 +215,7 @@ namespace TodoList
             Console.WriteLine($">> You have {incompleteCount} tasks to do and {completedCount} tasks are done!");
         }
 
+        // Prompts user for details to create a new task
         private static void CreateTaskView()
         {
             Console.Clear();
@@ -205,6 +231,7 @@ namespace TodoList
             PauseMessage("Task created successfully!");
         }
 
+        // Displays tasks and handles selection for editing, completion, or deletion
         private static void EditTaskView()
         {
             Console.Clear();
@@ -226,6 +253,7 @@ namespace TodoList
                 return;
             }
 
+            // Convert 1-based display number to zero-based collection index
             int targetIndex = selection - 1;
             var current = tasks[targetIndex];
 
@@ -264,6 +292,7 @@ namespace TodoList
             }
         }
 
+        // Handles property updates for a task; blanks retain existing values
         private static void UpdateTaskDetails(int index, TodoTask current)
         {
             Console.WriteLine($"\nEditing: \"{current.Title}\" (Leave blank to keep current value)");
@@ -310,6 +339,7 @@ namespace TodoList
             PauseMessage("Task updated successfully!");
         }
 
+        // Submenu for choosing task sort/grouping display
         private static void ShowTaskListMenu()
         {
             Console.Clear();
@@ -335,6 +365,7 @@ namespace TodoList
             }
         }
 
+        // Renders all tasks ordered by date
         private static void DisplayByDateView()
         {
             Console.Clear();
@@ -351,6 +382,7 @@ namespace TodoList
             PauseMessage();
         }
 
+        // Renders tasks grouped under their respective project names
         private static void DisplayByProjectView()
         {
             Console.Clear();
@@ -374,6 +406,7 @@ namespace TodoList
             PauseMessage();
         }
 
+        // Formats and prints a collection of tasks in tabular layout
         private static void RenderTable(IEnumerable<TodoTask> tasks)
         {
             Console.WriteLine(new string('-', 74));
@@ -383,6 +416,7 @@ namespace TodoList
             int index = 1;
             foreach (var t in tasks)
             {
+                // Truncate fields that exceed column widths
                 string shortTitle = t.Title.Length > 24 ? t.Title[..21] + "..." : t.Title;
                 string shortProj = t.Project.Length > 14 ? t.Project[..11] + "..." : t.Project;
 
@@ -392,6 +426,7 @@ namespace TodoList
             Console.WriteLine(new string('-', 74));
         }
 
+        // Prompts repeatedly until non-empty input is provided
         private static string PromptRequired(string prompt)
         {
             while (true)
@@ -403,6 +438,7 @@ namespace TodoList
             }
         }
 
+        // Prompts repeatedly until a valid future or current date is provided
         private static DateTime PromptDate(string prompt)
         {
             while (true)
@@ -422,6 +458,7 @@ namespace TodoList
             }
         }
 
+        // Prompts user to choose one of the predefined TaskStatus values
         private static TaskStatus PromptStatus()
         {
             while (true)
@@ -441,6 +478,7 @@ namespace TodoList
             }
         }
 
+        // Pauses console flow until the user presses a key
         private static void PauseMessage(string? message = null)
         {
             if (!string.IsNullOrWhiteSpace(message))
