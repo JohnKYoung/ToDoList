@@ -14,6 +14,12 @@ The following menu is then displayed
 (3) Edit Task (update, mark as done, remove)
 (4) Save and Quit
 
+Note that whenever the tasks are displayed they will be coloured according to Status:
+Pending - Grey
+InProgress - Orange
+Completed - Green
+
+
 Option 1:
 If the Task List is found
 The user is presented with a menu 
