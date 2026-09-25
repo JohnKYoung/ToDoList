@@ -37,7 +37,7 @@ JSON
 
 ## Prerequisites
 * .NET SDK (Version 6.0, 7.0, 8.0, or newer).
-* A terminal with ANSI color code support (Windows Terminal, PowerShell 7+, macOS Terminal, Linux Bash/Zsh).
+* A terminal with ANSI color code support (Windows Terminal, PowerShell 7+, macOS Terminal, Linux Bash/Zsh).  
 Getting Started
 1. Clone or Copy the Project. 
   git clone https://github/JohnKYoung/todolist.git   
@@ -63,18 +63,18 @@ XML
    Bash
    dotnet run
 
-**Navigation & Controls**
+**Navigation & Controls**  
 When the application runs, the main dashboard provides a task completion summary and 4 primary actions:
 Plaintext
 
->> Welcome to ToDoList
->> You have 2 tasks to do and 1 tasks are done!
+>> Welcome to ToDoList  
+>> You have 2 tasks to do and 1 tasks are done!  
 >> Tasks will be displayed in the following colours: Pending, InProgress, Completed
 
->> (1) Show Task List by date or project
->> (2) Add New Task
->> (3) Edit Task (update, mark as done, remove)
->> (4) Save and Quit
+>> (1) Show Task List by date or project   
+>> (2) Add New Task  
+>> (3) Edit Task (update, mark as done, remove)  
+>> (4) Save and Quit  
 ========================================
 >> Select an option (1-4): 
 Option	Action	Notes
@@ -221,16 +221,15 @@ Example structure:
 If the storage file does not exist, the application starts with an empty
 task list.
 If the file cannot be read or deserialized, the application reports the
-error and starts with an empty task list.   
+error and starts with an empty task list.  
 
-*
 Display
-Tasks are displayed in a tabular format:  
+* Tasks are displayed in a tabular format:  
 --------------------------------------------------------------------------  *  
-*#   | Title                    | Due Date     | Status       | Project   *
---------------------------------------------------------------------------
-1    | Prepare project report   | 2026-10-15   | Pending      | MyProject
---------------------------------------------------------------------------  **
+*#   | Title                    | Due Date     | Status       | Project    
+*--------------------------------------------------------------------------*   
+1    | Prepare project report   | 2026-10-15   | Pending      | MyProject  
+--------------------------------------------------------------------------  *
 
 Long titles and project names are truncated to fit the table columns.
 Status colours are applied using ANSI 24-bit colour escape sequences.
